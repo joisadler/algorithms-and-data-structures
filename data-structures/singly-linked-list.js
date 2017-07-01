@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 class Node {
   constructor(data) {
     this.data = data;
@@ -10,10 +12,6 @@ class Node {
     }
     return `${this.data}`;
   }
-
-  clone() {
-    return Object.assign(new Node(), this);
-  }
 }
 
 class SinglyList {
@@ -22,8 +20,35 @@ class SinglyList {
     this.head = null;
   }
 
+  clone() {
+    return _.cloneDeep(this);
+  }
+
   listLength() {
     return this.length;
+  }
+
+  isEmpty() {
+    return !this.head;
+  }
+
+  toString() {
+    let currentNode = this.head;
+    let str = '';
+
+    if (this.length === 1) {
+      return `[ ${currentNode.data} ]`;
+    }
+
+    for (let i = 1; i < this.length; i += 1) {
+      if (i === 1) {
+        str += `${currentNode.data}`;
+        currentNode = currentNode.next;
+      }
+      str += `, ${currentNode.data}`;
+      currentNode = currentNode.next;
+    }
+    return `[ ${str} ]`;
   }
 
   add(value) {
@@ -43,6 +68,49 @@ class SinglyList {
     currentNode.next = node;
     clone.length += 1;
     return clone;
+  }
+
+  searchNodeAt(position) {
+    const length = this.length;
+    const message = { failure: 'Failure: not-existent node in this list.' };
+    let currentNode = this.head;
+    let count = 1;
+
+    if (length === 0 || position < 1 || position > length) {
+      throw new Error(message.failure);
+    }
+
+    while (count < position) {
+      currentNode = currentNode.next;
+      count += 1;
+    }
+    return currentNode;
+  }
+
+  reverse() {
+    let result = new SinglyList();
+    for (let i = this.length; i > 0; i -= 1) {
+      result = result.add(this.searchNodeAt(i).data);
+    }
+    return result;
+  }
+
+  slice(start = 1, stop = this.length) {
+    const message = { failure: 'Failure: invalid parameter' };
+    let newList = new SinglyList();
+
+    if (this.length === 0) {
+      return newList;
+    }
+
+    if (start <= 0 || stop > this.length || start > stop) {
+      throw new Error(message.failure);
+    }
+
+    for (let i = start; i <= stop; i += 1) {
+      newList = newList.add(this.searchNodeAt(i).data);
+    }
+    return newList;
   }
 
   concat(list) {
@@ -91,74 +159,17 @@ class SinglyList {
     return left.concat(right);
   }
 
-  searchNodeAt(position) {
-    const length = this.length;
-    const message = { failure: 'Failure: not-existent node in this list.' };
-    let currentNode = this.head;
-    let count = 1;
-
-    if (length === 0 || position < 1 || position > length) {
-      throw new Error(message.failure);
-    }
-
-    while (count < position) {
-      currentNode = currentNode.next;
-      count += 1;
-    }
-    return currentNode;
-  }
-
-  clone() {
-    return Object.assign(new SinglyList(), this);
-  }
-
-  isEmpty() {
-    return !this.head;
-  }
-
-  reverse() {
-    let result = new SinglyList();
-    for (let i = this.length; i > 0; i -= 1) {
-      result = result.add(this.searchNodeAt(i).data);
-    }
-    return result;
-  }
-
-  toString() {
-    let currentNode = this.head;
-    let str = '';
-
-    if (this.length === 1) {
-      return `[ ${currentNode.data} ]`;
-    }
-
-    for (let i = 1; i < this.length; i += 1) {
-      if (i === 1) {
-        str += `${currentNode.data}`;
-        currentNode = currentNode.next;
-      }
-      str += `, ${currentNode.data}`;
+  hasCycle() {
+    const clone = this.clone();
+    let currentNode = clone.head;
+    for (let i = 1; i < clone.length; i += 1) {
       currentNode = currentNode.next;
     }
-    return `[ ${str} ]`;
-  }
 
-  slice(start = 1, stop = this.length) {
-    const message = { failure: 'Failure: invalid parameter' };
-    let newList = new SinglyList();
-
-    if (this.length === 0) {
-      return newList;
+    if (!currentNode.next) {
+      return false;
     }
-
-    if (start <= 0 || stop > this.length || start > stop) {
-      throw new Error(message.failure);
-    }
-
-    for (let i = start; i <= stop; i += 1) {
-      newList = newList.add(this.searchNodeAt(i).data);
-    }
-    return newList;
+    return true;
   }
 }
 
@@ -169,6 +180,25 @@ const isList = object =>
 const isNode = object =>
   Object.prototype.hasOwnProperty.call(object, 'data') &&
   Object.prototype.hasOwnProperty.call(object, 'next');
+
+const cycledListToStr = (list) => {
+  let result = '';
+  let currentNode = list.head;
+  for (let i = 1; i <= list.length * 2; i += 1) {
+    if (i === 1) {
+      result += `${currentNode.data}`;
+      currentNode = currentNode.next;
+    }
+    if (i === list.length * 2) {
+      result += `, ${currentNode.data}...`;
+      currentNode = currentNode.next;
+    } else {
+      result += `, ${currentNode.data}`;
+      currentNode = currentNode.next;
+    }
+  }
+  return `[ ${result} ]`;
+};
 
 const emptyList = new SinglyList();
 const list1 = emptyList
@@ -181,6 +211,8 @@ const list1 = emptyList
 const list2 = emptyList
   .add('Трам-пам-пам!')
   .add('Опа!');
+const cycledList = list1.clone();
+cycledList.searchNodeAt(4).next = cycledList.searchNodeAt(1);
 
 console.log(list1.toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам! ]
 console.log(list1.clone().toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам! ]
@@ -193,3 +225,6 @@ console.log(list1.listLength()); // 4
 console.log(list1.reverse().toString());// [ Парам-пам-пам!, Чирибим!, Трататусечки!, Трататуськи! ]
 console.log(list1.concat(list2).toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трам-пам-пам!, Опа! ]
 console.log(list1.addTo('Трам-пам-пам!', 4).toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Трам-пам-пам!, Парам-пам-пам! ]
+console.log(cycledListToStr(cycledList)); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трататуськи!... ]
+console.log(cycledList.hasCycle()); // true
+console.log(list1.hasCycle()); // false
