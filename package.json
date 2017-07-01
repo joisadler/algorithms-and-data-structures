@@ -1,0 +1,27 @@
+{
+  "name": "algorithms-and-data-structures",
+  "version": "1.0.0",
+  "description": "My own implementation of the algorithms that I am studying.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joisadler/algorithms-and-data-structures.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joisadler/algorithms-and-data-structures/issues"
+  },
+  "homepage": "https://github.com/joisadler/algorithms-and-data-structures#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}

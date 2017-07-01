@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 class Node {
   constructor(data) {
     this.data = data;
@@ -11,13 +13,9 @@ class Node {
     }
     return `${this.data}`;
   }
-
-  clone() {
-    return Object.assign(new Node(), this);
-  }
 }
 
-class SinglyList {
+class DoublyList {
   constructor() {
     this.length = 0;
     this.head = null;
@@ -25,7 +23,7 @@ class SinglyList {
   }
 
   clone() {
-    return Object.assign(new SinglyList(), this);
+    return _.cloneDeep(this);
   }
 
   listLength() {
@@ -33,7 +31,7 @@ class SinglyList {
   }
 
   isEmpty() {
-    return !this.head;
+    return this.length === 0;
   }
 
   toString() {
@@ -89,7 +87,7 @@ class SinglyList {
   }
 
   reverse() {
-    let result = new SinglyList();
+    let result = new DoublyList();
     for (let i = this.length; i > 0; i -= 1) {
       result = result.add(this.searchNodeAt(i).data);
     }
@@ -98,7 +96,7 @@ class SinglyList {
 
   slice(start = 1, stop = this.length) {
     const message = { failure: 'Failure: invalid parameter' };
-    let newList = new SinglyList();
+    let newList = new DoublyList();
 
     if (this.length === 0) {
       return newList;
@@ -124,7 +122,7 @@ class SinglyList {
 
   addTo(value, position) {
     const length = this.length;
-    const newList = new SinglyList();
+    const newList = new DoublyList();
     const message = { failure: 'Failure: invalid parameter.' };
 
     if (position <= 0 || position > length) {
@@ -159,6 +157,19 @@ class SinglyList {
     const right = clone.slice(position + 1, length);
     return left.concat(right);
   }
+
+  hasCycle() {
+    const clone = this.clone();
+    let currentNode = clone.head;
+    for (let i = 1; i < clone.length; i += 1) {
+      currentNode = currentNode.next;
+    }
+
+    if (!currentNode.next) {
+      return false;
+    }
+    return true;
+  }
 }
 
 const isList = object =>
@@ -171,7 +182,26 @@ const isNode = object =>
   Object.prototype.hasOwnProperty.call(object, 'previous') &&
   Object.prototype.hasOwnProperty.call(object, 'next');
 
-const emptyList = new SinglyList();
+const cycledListToStr = (list) => {
+  let result = '';
+  let currentNode = list.head;
+  for (let i = 1; i <= list.length * 2; i += 1) {
+    if (i === 1) {
+      result += `${currentNode.data}`;
+      currentNode = currentNode.next;
+    }
+    if (i === list.length * 2) {
+      result += `, ${currentNode.data}...`;
+      currentNode = currentNode.next;
+    } else {
+      result += `, ${currentNode.data}`;
+      currentNode = currentNode.next;
+    }
+  }
+  return `[ ${result} ]`;
+};
+
+const emptyList = new DoublyList();
 const list1 = emptyList
   .add('Трататуськи!')
   .add('Трататусечки!')
@@ -182,7 +212,8 @@ const list1 = emptyList
 const list2 = emptyList
   .add('Трам-пам-пам!')
   .add('Опа!');
-
+const cycledList = list1.clone();
+cycledList.searchNodeAt(4).next = cycledList.searchNodeAt(1);
 
 console.log(list1.toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам! ]
 console.log(list1.clone().toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам! ]
@@ -195,3 +226,6 @@ console.log(list1.listLength()); // 4
 console.log(list1.reverse().toString());// [ Парам-пам-пам!, Чирибим!, Трататусечки!, Трататуськи! ]
 console.log(list1.concat(list2).toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трам-пам-пам!, Опа! ]
 console.log(list1.addTo('Трам-пам-пам!', 4).toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Трам-пам-пам!, Парам-пам-пам! ]
+console.log(cycledListToStr(cycledList)); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трататуськи!... ]
+console.log(cycledList.hasCycle()); // true
+console.log(list1.hasCycle()); // false
