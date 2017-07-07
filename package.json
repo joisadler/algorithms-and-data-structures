@@ -1,6 +1,6 @@
 {
   "name": "algorithms-and-data-structures",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "My own implementation of the algorithms that I am studying.",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/joisadler/algorithms-and-data-structures.git"
   },
-  "author": "",
+  "author": "Yossi Adler joisadler@gmail.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/joisadler/algorithms-and-data-structures/issues"
