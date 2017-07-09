@@ -8,7 +8,7 @@ const path = {
     js: ['src/algorithms/sort/*.js', 'src/data-structures/*.js'],
   },
   dist: {
-    js: 'compiled',
+    js: 'dist',
   },
 };
 

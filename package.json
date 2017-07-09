@@ -2,15 +2,19 @@
   "name": "algorithms-and-data-structures",
   "version": "0.0.1",
   "description": "My own implementation of the algorithms that I am studying.",
+  "keywords": [
+    "algorithms",
+    "data structures"
+  ],
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/joisadler/algorithms-and-data-structures.git"
   },
-  "author": "Yossi Adler joisadler@gmail.com",
+  "author": "Yossi Adler <joisadler@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/joisadler/algorithms-and-data-structures/issues"
@@ -22,9 +26,12 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-plumber": "^1.1.0",
-    "gulp-watch": "^4.3.11"
+    "gulp-watch": "^4.3.11",
+    "jest": "^20.0.4"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "babel-core": "^6.25.0",
+    "lodash": "^4.17.4",
+    "save-dev": "^2.0.0"
   }
 }
