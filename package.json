@@ -22,7 +22,8 @@
   "homepage": "https://github.com/joisadler/algorithms-and-data-structures#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-0": "^6.24.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-jest": "^2.0.0",
