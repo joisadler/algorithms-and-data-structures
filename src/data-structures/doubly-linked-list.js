@@ -201,31 +201,4 @@ const cycledListToStr = (list) => {
   return `[ ${result} ]`;
 };
 
-const emptyList = new DoublyList();
-const list1 = emptyList
-  .add('Трататуськи!')
-  .add('Трататусечки!')
-  .add('Чирибим!')
-  .add('Чирибом!')
-  .remove(4)
-  .add('Парам-пам-пам!');
-const list2 = emptyList
-  .add('Трам-пам-пам!')
-  .add('Опа!');
-const cycledList = list1.clone();
-cycledList.searchNodeAt(4).next = cycledList.searchNodeAt(1);
-
-console.log(list1.toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам! ]
-console.log(list1.clone().toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам! ]
-console.log(list1.searchNodeAt(2).toString()); // Трататусечки!
-console.log(list1.slice(2, 3).toString()); // [ Трататусечки!, Чирибим! ]
-console.log(isList(list1)); // true
-console.log(isNode(list1.searchNodeAt(4))); // true
-console.log(list1.isEmpty()); // false
-console.log(list1.listLength()); // 4
-console.log(list1.reverse().toString());// [ Парам-пам-пам!, Чирибим!, Трататусечки!, Трататуськи! ]
-console.log(list1.concat(list2).toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трам-пам-пам!, Опа! ]
-console.log(list1.addTo('Трам-пам-пам!', 4).toString()); // [ Трататуськи!, Трататусечки!, Чирибим!, Трам-пам-пам!, Парам-пам-пам! ]
-console.log(cycledListToStr(cycledList)); // [ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трататуськи!... ]
-console.log(cycledList.hasCycle()); // true
-console.log(list1.hasCycle()); // false
+export { DoublyList, isList, isNode, cycledListToStr };

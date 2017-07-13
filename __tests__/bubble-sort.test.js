@@ -1,4 +1,4 @@
-const bubbleSort = require('../src/algorithms/sort/bubble-sort');
+import bubbleSort from '../src/algorithms/sort/bubble-sort'
 
 test('bubble-sort', () => {
   expect(bubbleSort([5, 1, 4, 2, 8])).toEqual([1, 2, 4, 5, 8]);

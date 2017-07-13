@@ -1,4 +1,4 @@
-const quickSort = require('../src/algorithms/sort/quicksort');
+import quickSort from '../src/algorithms/sort/quicksort';
 
 test('bubble-sort', () => {
   expect(quickSort([5, 1, 4, 2, 8])).toEqual([1, 2, 4, 5, 8]);
