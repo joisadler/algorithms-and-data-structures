@@ -1,9 +1,5 @@
-import {
-  DoublyList,
-  isList,
-  isNode,
-  cycledListToStr,
-} from '../src/data-structures/doubly-linked-list';
+import { isList, isNode, cycledListToStr } from '../src/data-structures/doubly-linked-list/doubly-linked-list';
+import DoublyList from '../src/data-structures/doubly-linked-list/DoublyList';
 
 const emptyList = new DoublyList();
 const list1 = emptyList

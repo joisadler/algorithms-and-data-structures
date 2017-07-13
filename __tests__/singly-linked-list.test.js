@@ -1,9 +1,5 @@
-import {
-  SinglyList,
-  isList,
-  isNode,
-  cycledListToStr,
-} from '../src/data-structures/singly-linked-list';
+import { isList, isNode, cycledListToStr } from '../src/data-structures/singly-linked-list/singly-linked-list';
+import SinglyList from '../src/data-structures/singly-linked-list/SinglyList';
 
 const emptyList = new SinglyList();
 const list1 = emptyList
