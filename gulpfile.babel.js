@@ -1,8 +1,8 @@
-const gulp = require('gulp');
-const babel = require('gulp-babel');
-const watch = require('gulp-watch');
-const plumber = require('gulp-plumber');
-const jest = require('gulp-jest').default;
+import gulp from 'gulp';
+import babel from 'gulp-babel';
+import watch from 'gulp-watch';
+import plumber from 'gulp-plumber';
+import jest from 'gulp-jest';
 
 const path = {
   src: {
