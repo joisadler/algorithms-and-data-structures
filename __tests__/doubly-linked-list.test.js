@@ -1,4 +1,4 @@
-import { isList, isNode, cycledListToStr } from '../src/data-structures/doubly-linked-list/doubly-linked-list';
+import { isDoublyList, isDoublyNode, cycledDoublyListToStr } from '../src/data-structures/doubly-linked-list/doubly-linked-list';
 import DoublyList from '../src/data-structures/doubly-linked-list/DoublyList';
 
 const emptyList = new DoublyList();
@@ -21,14 +21,14 @@ test('bubble-sort', () => {
   expect(list1.clone()).not.toBe(list1);
   expect(list1.searchNodeAt(2).toString()).toBe('Трататусечки!');
   expect(list1.slice(2, 3).toString()).toBe('[ Трататусечки!, Чирибим! ]');
-  expect(isList(list1)).toBe(true);
-  expect(isNode(list1.searchNodeAt(4))).toBe(true);
+  expect(isDoublyList(list1)).toBe(true);
+  expect(isDoublyNode(list1.searchNodeAt(4))).toBe(true);
   expect(list1.isEmpty()).toBe(false);
   expect(list1.listLength()).toBe(4);
   expect(list1.reverse().toString()).toBe('[ Парам-пам-пам!, Чирибим!, Трататусечки!, Трататуськи! ]');
   expect(list1.concat(list2).toString()).toBe('[ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трам-пам-пам!, Опа! ]');
   expect(list1.addTo('Трам-пам-пам!', 4).toString()).toBe('[ Трататуськи!, Трататусечки!, Чирибим!, Трам-пам-пам!, Парам-пам-пам! ]');
-  expect(cycledListToStr(cycledList)).toBe('[ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трататуськи!... ]');
+  expect(cycledDoublyListToStr(cycledList)).toBe('[ Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трататуськи!, Трататусечки!, Чирибим!, Парам-пам-пам!, Трататуськи!... ]');
   expect(cycledList.hasCycle()).toBe(true);
   expect(list1.hasCycle()).toBe(false);
 });
