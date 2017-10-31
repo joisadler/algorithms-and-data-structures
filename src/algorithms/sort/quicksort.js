@@ -1,13 +1,13 @@
-export default (arr) => {
-  const sort = (list) => {
-    if (list.length <= 1) {
-      return list;
-    }
-    const pivot = list[0];
-    const rest = list.splice(0, 1);
-    const less = list.slice().filter(item => item < pivot, rest);
-    const greaterOrEqual = list.slice().filter(item => item >= pivot, rest);
-    return [].concat(sort(less), pivot, sort(greaterOrEqual));
-  };
-  return sort(arr);
+const qsort = (arr) => {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  const copy = arr.slice();
+  const pivot = copy[0];
+  const rest = copy.splice(0, 1);
+  const less = copy.filter(item => item < pivot, rest);
+  const greaterOrEqual = copy.filter(item => item >= pivot, rest);
+  return [].concat(qsort(less), pivot, qsort(greaterOrEqual));
 };
+
+export default qsort;
